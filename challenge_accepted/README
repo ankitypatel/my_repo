@@ -1,0 +1,34 @@
+
+run.sh:
+shell script to execute coding_challenge.py (optional)
+
+
+coding_challenge.py:
+coding_challenge.py is python script which take data objects as inputs from products.txt and listings.txt, which stores
+output in result_file.txt
+
+products.txt:
+//data object
+{
+  "product_name": String // A unique id for the product
+  "manufacturer": String
+  "family": String // optional grouping of products
+  "model": String
+  "announced-date": String // ISO-8601 formatted date string, e.g. 2011-04-28T19:00:00.000-05:00
+}
+
+listings.txt:
+//data object
+{
+  "title": String // description of product for sale
+  "manufacturer": String // who manufactures the product for sale
+  "currency": String // currency code, e.g. USD, CAD, GBP, etc.
+  "price": String // price, e.g. 19.99, 100.00
+}
+
+result_file.txt:
+//data object
+{
+ "product_name": String
+ "listings": Array[Listing]
+}

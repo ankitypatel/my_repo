@@ -5,6 +5,16 @@ import os
 import json
 import re
 
+########################################################################
+#
+#  Name        : Ankit Patel (ankitypatel21@gmail.com)
+#  Description : This program is taking data objects from products.txt and listings.txt, and
+#                creates data object of product name and suitable listing.
+#                Resulted data object is stored in result_file.txt.
+#
+#
+########################################################################
+
 product_list=[]
 retail_list=[]
 result_dict={}
@@ -14,8 +24,7 @@ def create_procuct_listing():
       This function is traverse retail list and finds suitable listing for perticular product
       and writes result data in "result.txt" in jason format.
   '''
-  i=0
-  result_file=open("result_file.txt","w+");   # open file for writing result data
+  result_file=open("result_file.txt","wb+");   # open file for writing result data
   result_file.seek(0,0);
 
   for product_element in product_list:
@@ -28,7 +37,8 @@ def create_procuct_listing():
 
         result_dict["product_name"]=product_element["product_name"]
         result_dict["listings"]=retail_element
-        json.dump(result_dict,result_file, indent=1)  #write result data to result_file.txt
+        json.dump(result_dict,result_file)  #write result data to result_file.txt
+        result_file.write('\n')
 
   if os.stat("result_file.txt").st_size:
     return True;
@@ -43,7 +53,7 @@ if __name__=="__main__":
   try:
     product_file= open("products.txt","r+");
   except:
-    print "product.txt not found!";
+    print "products.txt not found!";
   try:
     listing_file= open("listings.txt","r+");
   except:
