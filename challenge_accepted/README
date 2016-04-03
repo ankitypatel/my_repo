@@ -1,4 +1,6 @@
 
+To execute coding_challenge.py, write "python coding_challenge.py" or "./run.sh" in directory
+
 run.sh:
 shell script to execute coding_challenge.py (optional)
 
