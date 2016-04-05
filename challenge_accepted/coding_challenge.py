@@ -15,9 +15,12 @@ import re
 #
 ########################################################################
 
-product_list=[]
-retail_list=[]
-result_dict={}
+product_list=[]               # list of products.txt objects
+retail_list=[]                # list of listings.txt objects
+result_dict={}                # result object in result_file.txt
+retail_element_list=[]        # list of listings.txt objects respect to product_name
+product_element_track=[]      # list of product name ,to keep track of processed products
+
 
 def create_procuct_listing():
   '''
@@ -29,16 +32,23 @@ def create_procuct_listing():
 
   for product_element in product_list:
 
-    for retail_element in retail_list:
-      # search for suitable listing respect to product manufecturer and model
+    if product_element["product_name"] not in product_element_track:  # avoid repetation of same product
 
-      if (re.search(product_element['manufacturer'],retail_element["title"],flags=re.I)) and \
-         (re.search(product_element["model"]+' ',retail_element["title"],flags=re.I)):
+      product_element_track.append(product_element["product_name"])
+      for retail_element in retail_list:
+        # search for suitable listing respect to product manufecturer and model
+        if (re.search(product_element['manufacturer'],retail_element["title"],flags=re.I)) and \
+           (re.search(product_element["model"]+' ',retail_element["title"],flags=re.I)):
 
-        result_dict["product_name"]=product_element["product_name"]
-        result_dict["listings"]=retail_element
+          result_dict["product_name"] = product_element["product_name"]
+          retail_element_list.append(retail_element)
+          result_dict["listings"] = retail_element_list
+
+      if result_dict:
         json.dump(result_dict,result_file)  #write result data to result_file.txt
         result_file.write('\n')
+        result_dict.clear()
+      del retail_element_list[:]
 
   if os.stat("result_file.txt").st_size:
     return True;
