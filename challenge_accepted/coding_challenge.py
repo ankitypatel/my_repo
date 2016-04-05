@@ -32,7 +32,7 @@ def create_procuct_listing():
 
   for product_element in product_list:
 
-    if product_element["product_name"] not in product_element_track:  # avoid repetation of same product
+    if product_element["product_name"].lower() not in product_element_track:  # avoid repetation of same product
 
       product_element_track.append(product_element["product_name"])
       for retail_element in retail_list:
